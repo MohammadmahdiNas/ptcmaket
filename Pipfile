@@ -9,6 +9,7 @@ django-debug-toolbar = "*"
 djangorestframework = "*"
 drf-nested-routers = "*"
 pillow = "*"
+django-modeltranslation = "*"
 
 [dev-packages]
 

@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-07 21:56+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: .\content\models.py:10 .\content\models.py:68
+msgid "عنوان"
+msgstr ""
+
+#: .\content\models.py:11 .\content\models.py:69
+msgid "اسلاگ"
+msgstr ""
+
+#: .\content\models.py:12 .\content\models.py:70 .\submissions\models.py:12
+#: .\submissions\models.py:56
+msgid "توضیحات"
+msgstr ""
+
+#: .\content\models.py:13
+msgid "خلاصه"
+msgstr ""
+
+#: .\content\models.py:14 .\content\models.py:37
+msgid "متن"
+msgstr ""
+
+#: .\content\models.py:15
+msgid "منتشر شده"
+msgstr ""
+
+#: .\content\models.py:16 .\content\models.py:43 .\content\models.py:77
+#: .\submissions\models.py:13 .\submissions\models.py:44
+#: .\submissions\models.py:57
+msgid "تاریخ ایجاد"
+msgstr ""
+
+#: .\content\models.py:17 .\content\models.py:44
+msgid "تاریخ بروزرسانی"
+msgstr ""
+
+#: .\content\models.py:20 .\content\models.py:38
+msgid "بلاگ"
+msgstr ""
+
+#: .\content\models.py:21
+msgid "بلاگ‌ها"
+msgstr ""
+
+#: .\content\models.py:40
+msgid "پدر"
+msgstr ""
+
+#: .\content\models.py:42 .\submissions\models.py:42 .\submissions\models.py:68
+msgid "وضعیت"
+msgstr ""
+
+#: .\content\models.py:46
+msgid "کامنت"
+msgstr ""
+
+#: .\content\models.py:47
+msgid "کامنت‌ها"
+msgstr ""
+
+#: .\content\models.py:63 .\content\models.py:72
+msgid "دسته‌بندی"
+msgstr ""
+
+#: .\content\models.py:64
+msgid "دسته‌بندی‌ها"
+msgstr ""
+
+#: .\content\models.py:74
+msgid "اندازه"
+msgstr ""
+
+#: .\content\models.py:75
+msgid "ابعاد"
+msgstr ""
+
+#: .\content\models.py:76
+msgid "مقیاس"
+msgstr ""
+
+#: .\content\models.py:92 .\content\models.py:101
+msgid "پروژه"
+msgstr ""
+
+#: .\content\models.py:93
+msgid "پروژه‌ها"
+msgstr ""
+
+#: .\content\models.py:106
+msgid "تصویر"
+msgstr ""
+
+#: .\content\models.py:110
+msgid "گالری"
+msgstr ""
+
+#: .\content\models.py:111
+msgid "گالری‌ها"
+msgstr ""
+
+#: .\ptcmaket\settings.py:125
+msgid "Persian"
+msgstr ""
+
+#: .\ptcmaket\settings.py:126
+msgid "English"
+msgstr ""
+
+#: .\submissions\models.py:8 .\submissions\models.py:30
+msgid "نام"
+msgstr ""
+
+#: .\submissions\models.py:9 .\submissions\models.py:31
+msgid "نام خانوادگی"
+msgstr ""
+
+#: .\submissions\models.py:10 .\submissions\models.py:32
+#: .\submissions\models.py:54
+msgid "ایمیل"
+msgstr ""
+
+#: .\submissions\models.py:11 .\submissions\models.py:33
+#: .\submissions\models.py:55
+msgid "شماره تماس"
+msgstr ""
+
+#: .\submissions\models.py:16
+msgid "ارتباط"
+msgstr ""
+
+#: .\submissions\models.py:17
+msgid "ارتباطات"
+msgstr ""
+
+#: .\submissions\models.py:24 .\submissions\models.py:60
+msgid "در انتظار"
+msgstr ""
+
+#: .\submissions\models.py:26 .\submissions\models.py:61
+msgid "پذیرفته شده"
+msgstr ""
+
+#: .\submissions\models.py:27 .\submissions\models.py:62
+msgid "رد شده"
+msgstr ""
+
+#: .\submissions\models.py:34
+msgid "مقطع تحصیلی"
+msgstr ""
+
+#: .\submissions\models.py:35
+msgid "رشته تحصیلی"
+msgstr ""
+
+#: .\submissions\models.py:36
+msgid "رزومه"
+msgstr ""
+
+#: .\submissions\models.py:37
+msgid "نامه پیوست"
+msgstr ""
+
+#: .\submissions\models.py:47
+msgid "درخواست"
+msgstr ""
+
+#: .\submissions\models.py:48
+msgid "درخواست‌ها"
+msgstr ""
+
+#: .\submissions\models.py:52
+msgid "نام شرکت"
+msgstr ""
+
+#: .\submissions\models.py:53
+msgid "حوزه فعالیت"
+msgstr ""
+
+#: .\submissions\models.py:72
+msgid "سفارش"
+msgstr ""
+
+#: .\submissions\models.py:73
+msgid "سفارش‌ها"
+msgstr ""
+
+#: .\submissions\models.py:77
+msgid "عملیات"
+msgstr ""
+
+#: .\submissions\models.py:78
+msgid "زمان"
+msgstr ""
+
+#: .\submissions\models.py:81
+msgid "تاریخچه"
+msgstr ""
+
+#: .\submissions\models.py:82
+msgid "تاریخچه‌ها"
+msgstr ""
+
+#: .\submissions\validators.py:8
+msgid "Unsupported file type. Only PDF and Word documents are allowed."
+msgstr ""

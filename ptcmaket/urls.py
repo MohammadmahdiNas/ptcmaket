@@ -20,13 +20,18 @@ from django.conf.urls.static import static
 import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
+]
+
+urlpatterns += i18n_patterns(
     path("admin/", admin.site.urls),
     path("__debug__/", include(debug_toolbar.urls)),
     path("content/", include("content.api.urls")),
     path("submissions/", include("submissions.api.urls")),
-] 
+)
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
