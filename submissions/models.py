@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 
@@ -8,8 +9,8 @@ class Contact(models.Model):
     phone_number = models.CharField(max_length=15, verbose_name="شماره تماس")
     description = models.TextField(verbose_name="توضیحات")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
-    
-    class meta:
+
+    class Meta:
         verbose_name = "ارتباط"
         verbose_name_plural = "ارتباطات"
 
@@ -39,8 +40,8 @@ class Apply(models.Model):
         verbose_name="وضعیت",
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
-    
-    class meta:
+
+    class Meta:
         verbose_name = "درخواست"
         verbose_name_plural = "درخواست‌ها"
 
@@ -64,7 +65,16 @@ class Order(models.Model):
         default="pending",
         verbose_name="وضعیت",
     )
-    
-    class meta:
+
+    class Meta:
         verbose_name = "سفارش"
         verbose_name_plural = "سفارش‌ها"
+
+
+class History(models.Model):
+    action = models.CharField(max_length=100, verbose_name="عملیات")
+    timestamp = models.DateField(default=timezone.now, verbose_name="زمان")
+
+    class Meta:
+        verbose_name = "تاریخچه"
+        verbose_name_plural = "تاریخچه‌ها"

@@ -42,6 +42,9 @@ class Comment(models.Model):
     status = models.BooleanField(default=True, verbose_name=_("وضعیت"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("تاریخ ایجاد"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("تاریخ بروزرسانی"))
+    class Meta:
+        verbose_name = _("کامنت")
+        verbose_name_plural = _("کامنت‌ها")
 
 
 class Category(models.Model):
@@ -56,7 +59,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    class meta:
+    class Meta:
         verbose_name = _("دسته‌بندی")
         verbose_name_plural = _("دسته‌بندی‌ها")
 
@@ -85,7 +88,7 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-    class meta:
+    class Meta:
         verbose_name = _("پروژه")
         verbose_name_plural = _("پروژه‌ها")
 
@@ -103,6 +106,6 @@ class Gallery(models.Model):
         verbose_name=_("تصویر"),
     )
 
-    class meta:
+    class Meta:
         verbose_name = _("گالری")
         verbose_name_plural = _("گالری‌ها")

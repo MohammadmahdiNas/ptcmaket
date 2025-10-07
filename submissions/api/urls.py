@@ -7,6 +7,7 @@ router = routers.DefaultRouter()
 router.register("contact-us", views.ContactViewSet, basename="contacts")
 router.register("membership", views.ApplyViewSet, basename="Memberships")
 router.register("orders", views.OrderViewSet, basename="orders")
+router.register("history", views.HistoryViewSet, basename="history")
 
 urlpatterns = [
     path("", include(router.urls))
