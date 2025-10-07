@@ -3,24 +3,25 @@ from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.utils.translation import gettext_lazy as _
 
-from . validators import validate_file_size
+from .validators import validate_file_size
+
 
 class Blog(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    description = models.TextField()
-    summary = models.TextField()
-    body = RichTextField()
-    is_published = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
+    title = models.CharField(max_length=200, verbose_name=_("عنوان"))
+    slug = models.SlugField(unique=True, verbose_name=_("اسلاگ"))
+    description = models.TextField(verbose_name=_("توضیحات"))
+    summary = models.TextField(verbose_name=_("خلاصه"))
+    body = RichTextField(verbose_name=_("متن"))
+    is_published = models.BooleanField(default=True, verbose_name=_("منتشر شده"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("تاریخ ایجاد"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("تاریخ بروزرسانی"))
+
     class Meta:
-        verbose_name = _("Blog")
-        verbose_name_plural = _("Blogs")
-    
+        verbose_name = _("بلاگ")
+        verbose_name_plural = _("بلاگ‌ها")
+
     def save(self, *args, **kwargs):
-        if not self.slug:  
+        if not self.slug:
             self.slug = slugify(self.title)[:50]
         super().save(*args, **kwargs)
 
@@ -30,55 +31,78 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
 class Comment(models.Model):
-    text = models.TextField()
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    parent = models.ForeignKey("self", null=True, on_delete=models.CASCADE)
-    status = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    
+    text = models.TextField(verbose_name=_("متن"))
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name=_("بلاگ"))
+    parent = models.ForeignKey(
+        "self", null=True, on_delete=models.CASCADE, verbose_name=_("پدر")
+    )
+    status = models.BooleanField(default=True, verbose_name=_("وضعیت"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("تاریخ ایجاد"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("تاریخ بروزرسانی"))
+
+
 class Category(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:  
-            self.slug = slugify(self.title)  
+        if not self.slug:
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.title
 
+    class meta:
+        verbose_name = _("دسته‌بندی")
+        verbose_name_plural = _("دسته‌بندی‌ها")
+
+
 class Project(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    description = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    size = models.PositiveIntegerField()
-    dimensions = models.CharField(max_length=30)
-    scale = models.PositiveIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    
+    title = models.CharField(max_length=200, verbose_name=_("عنوان"))
+    slug = models.SlugField(unique=True, verbose_name=_("اسلاگ"))
+    description = models.TextField(verbose_name=_("توضیحات"))
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, verbose_name=_("دسته‌بندی")
+    )
+    size = models.PositiveIntegerField(verbose_name=_("اندازه"))
+    dimensions = models.CharField(max_length=30, verbose_name=_("ابعاد"))
+    scale = models.PositiveIntegerField(verbose_name=_("مقیاس"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("تاریخ ایجاد"))
+
     def save(self, *args, **kwargs):
-        if not self.slug:  
-            self.slug = slugify(self.title)  
+        if not self.slug:
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
-        
+
     @property
     def slug_id(self):
         return f"{self.slug}-{self.id}"
 
     def __str__(self):
         return self.title
-    
-    
+
+    class meta:
+        verbose_name = _("پروژه")
+        verbose_name_plural = _("پروژه‌ها")
+
 
 class Gallery(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='gallery')
-    image = models.ImageField(upload_to='content/images', validators=[validate_file_size])
-        
-    
-        
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="gallery",
+        verbose_name=_("پروژه"),
+    )
+    image = models.ImageField(
+        upload_to="content/images",
+        validators=[validate_file_size],
+        verbose_name=_("تصویر"),
+    )
+
+    class meta:
+        verbose_name = _("گالری")
+        verbose_name_plural = _("گالری‌ها")

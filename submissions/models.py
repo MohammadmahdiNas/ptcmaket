@@ -2,12 +2,16 @@ from django.db import models
 
 
 class Contact(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=15)
-    description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    first_name = models.CharField(max_length=50, verbose_name="نام")
+    last_name = models.CharField(max_length=50, verbose_name="نام خانوادگی")
+    email = models.EmailField(verbose_name="ایمیل")
+    phone_number = models.CharField(max_length=15, verbose_name="شماره تماس")
+    description = models.TextField(verbose_name="توضیحات")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
+    
+    class meta:
+        verbose_name = "ارتباط"
+        verbose_name_plural = "ارتباطات"
 
 
 class Apply(models.Model):
@@ -20,29 +24,34 @@ class Apply(models.Model):
         ("rejected", "rejected"),
     ]
 
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=15)
-    education_degree = models.CharField(max_length=30)
-    study_field = models.CharField(max_length=30)
-    resume = models.FileField(upload_to="resumes/")
-    cover_letter = models.TextField()
+    first_name = models.CharField(max_length=50, verbose_name="نام")
+    last_name = models.CharField(max_length=50, verbose_name="نام خانوادگی")
+    email = models.EmailField(verbose_name="ایمیل")
+    phone_number = models.CharField(max_length=15, verbose_name="شماره تماس")
+    education_degree = models.CharField(max_length=30, verbose_name="مقطع تحصیلی")
+    study_field = models.CharField(max_length=30, verbose_name="رشته تحصیلی")
+    resume = models.FileField(upload_to="resumes/", verbose_name="رزومه")
+    cover_letter = models.TextField(verbose_name="نامه پیوست")
     status = models.CharField(
         max_length=10,  # ex rejected
         choices=STATUS_CHOICES,
         default="pending",
+        verbose_name="وضعیت",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
+    
+    class meta:
+        verbose_name = "درخواست"
+        verbose_name_plural = "درخواست‌ها"
 
 
 class Order(models.Model):
-    company_name = models.CharField(max_length=50)
-    activity_area = models.CharField(max_length=50)
-    email = models.EmailField()
-    contact_number = models.CharField(max_length=15)
-    explanation = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    company_name = models.CharField(max_length=50, verbose_name="نام شرکت")
+    activity_area = models.CharField(max_length=50, verbose_name="حوزه فعالیت")
+    email = models.EmailField(verbose_name="ایمیل")
+    contact_number = models.CharField(max_length=15, verbose_name="شماره تماس")
+    explanation = models.TextField(verbose_name="توضیحات")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
 
     STATUS_CHOICES = [
         ("pending", "pending"),
@@ -53,4 +62,9 @@ class Order(models.Model):
         max_length=10,  # ex rejected
         choices=STATUS_CHOICES,
         default="pending",
+        verbose_name="وضعیت",
     )
+    
+    class meta:
+        verbose_name = "سفارش"
+        verbose_name_plural = "سفارش‌ها"
