@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404, render
 from ..models import Blog, Category, History, Project, Gallery, Comment
 from .serializers import *
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet, ReadOnlyModelViewSet
 
 
-class CategoryViewSet(ModelViewSet):
+class CategoryViewSet(ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = "slug_id"
@@ -19,15 +19,32 @@ class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        slug_id = self.kwargs.get("blog_slug_id")
+        if slug_id:
+            slug, pk = slug_id.rsplit("-", 1)
+            context["blog_id"] = pk
+        else:
+            context["blog_id"] = None
+        return context
 
-class BlogViewSet(ModelViewSet):
+    def get_queryset(self):
+        slug_id = self.kwargs.get("blog_slug_id")
+        if not slug_id:
+            return Comment.objects.none()
+        slug, pk = slug_id.rsplit("-", 1)
+        return Comment.objects.filter(blog_id=pk)
+
+
+class BlogViewSet(ReadOnlyModelViewSet):
     queryset = Blog.objects.all()
     lookup_field = "slug_id"
 
     def get_object(self):
         slug_id = self.kwargs.get(self.lookup_field)
         slug, pk = slug_id.rsplit("-", 1)
-        return get_object_or_404(Blog, pk=pk)
+        return get_object_or_404(Blog.objects.prefetch_related("comments"), pk=pk)
 
     def get_serializer(self, *args, **kwargs):
         if self.action == "list":
@@ -35,7 +52,7 @@ class BlogViewSet(ModelViewSet):
         return BlogDetailSerializer(*args, **kwargs)
 
 
-class ProjectViewSet(ModelViewSet):
+class ProjectViewSet(ReadOnlyModelViewSet):
     queryset = Project.objects.all().prefetch_related("gallery")
     serializer_class = ProjectDetailSerializer
     lookup_field = "slug_id"
@@ -51,17 +68,17 @@ class ProjectViewSet(ModelViewSet):
         return super().get_serializer(*args, **kwargs)
 
 
-class GalleryViewSet(ModelViewSet):
+class GalleryViewSet(ReadOnlyModelViewSet):
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializer
 
     def get_serializer_context(self):
         # 1. Start by calling the super method to get the base context
-        context = super().get_serializer_context() 
-        
+        context = super().get_serializer_context()
+
         # The key for the parent lookup is typically prepended/renamed by NestedDefaultRouter
         # Using 'slug_id_slug_id' based on the router configuration
-        slug_id = self.kwargs.get("project_slug_id") 
+        slug_id = self.kwargs.get("project_slug_id")
 
         if slug_id:
             # Safely split the slug and the primary key
@@ -70,26 +87,25 @@ class GalleryViewSet(ModelViewSet):
             context["project_id"] = pk
         else:
             # Provide a fallback value if the slug_id is missing (e.g., for schema generation or if routing fails)
-            context["project_id"] = None 
-            
+            context["project_id"] = None
+
         return context
 
     def get_queryset(self):
         # The key for the parent lookup is used to filter the Gallery objects
-        slug_id = self.kwargs.get("project_slug_id") 
+        slug_id = self.kwargs.get("project_slug_id")
 
         if not slug_id:
             # If the required parameter is missing, return an empty queryset
             return Gallery.objects.none()
-        
+
         # Safely split the slug and the primary key
         slug, pk = slug_id.rsplit("-", 1)
-        
+
         # Filter galleries by the extracted project primary key (pk)
         return Gallery.objects.filter(project_id=pk)
-    
-    
-    
-class HistoryViewSet(ModelViewSet):
+
+
+class HistoryViewSet(ReadOnlyModelViewSet):
     queryset = History.objects.all()
     serializer_class = HistorySerializer

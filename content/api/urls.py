@@ -9,14 +9,19 @@ router.register("blogs", views.BlogViewSet, basename="blogs")
 router.register("projects", views.ProjectViewSet, basename="projects")
 router.register("history", views.HistoryViewSet, basename="history")
 # router.register('galleries', GalleryViewSet, basename='galleries')
-# router.register('comments', CommentViewSet, basename='comments')
+# router.register('comments', views.CommentViewSet, basename='comments')
 
 projects_router = routers.NestedDefaultRouter(router, "projects", lookup="project")
 projects_router.register( 
     "galleries", views.GalleryViewSet, basename="project-galleries"
 )
+blogs_router = routers.NestedDefaultRouter(router, "blogs", lookup="blog")
+blogs_router.register( 
+    "comments", views.CommentViewSet, basename="blog-comments"
+)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("", include(projects_router.urls))
+    path("", include(projects_router.urls)),
+    path("", include(blogs_router.urls))
 ]

@@ -36,7 +36,7 @@ class Blog(models.Model):
 
 class Comment(models.Model):
     text = models.TextField(verbose_name=_("متن"))
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name=_("بلاگ"))
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name=_("بلاگ"), related_name="comments")
     parent = models.ForeignKey(
         "self", null=True, on_delete=models.CASCADE, verbose_name=_("پدر")
     )

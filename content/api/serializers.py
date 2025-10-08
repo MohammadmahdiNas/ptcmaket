@@ -4,6 +4,9 @@ from rest_framework import serializers
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        blog_id = self.context[blog_id]
+    
     class Meta:
         model = Comment
         fields = ["id", "text", "blog", "parent", "status", "created_at"]
