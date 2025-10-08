@@ -51,10 +51,6 @@ class ProjectViewSet(ModelViewSet):
         return super().get_serializer(*args, **kwargs)
 
 
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import get_object_or_404
-# Assume Project, Gallery, GallerySerializer are defined elsewhere
-
 class GalleryViewSet(ModelViewSet):
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializer
