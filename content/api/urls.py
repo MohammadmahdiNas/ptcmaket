@@ -7,6 +7,7 @@ router = routers.DefaultRouter()
 router.register("categories", views.CategoryViewSet, basename="categories")
 router.register("blogs", views.BlogViewSet, basename="blogs")
 router.register("projects", views.ProjectViewSet, basename="projects")
+router.register("history", views.HistoryViewSet, basename="history")
 # router.register('galleries', GalleryViewSet, basename='galleries')
 # router.register('comments', CommentViewSet, basename='comments')
 

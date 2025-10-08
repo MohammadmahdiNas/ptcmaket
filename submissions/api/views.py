@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
-from ..models import Apply, Contact, History, Order
-from .serializers import ApplySerializer, ContactSerializer, HistorySerializer, HistorySerializer, OrderSerializer
+from ..models import Apply, Contact, Order
+from .serializers import ApplySerializer, ContactSerializer, OrderSerializer
 
 
 class ContactViewSet(ModelViewSet):
@@ -21,6 +21,3 @@ class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     
 
-class HistoryViewSet(ModelViewSet):
-    queryset = History.objects.all()
-    serializer_class = HistorySerializer

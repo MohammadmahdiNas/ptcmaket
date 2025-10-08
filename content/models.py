@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
@@ -109,3 +110,12 @@ class Gallery(models.Model):
     class Meta:
         verbose_name = _("گالری")
         verbose_name_plural = _("گالری‌ها")
+        
+        
+class History(models.Model):
+    action = models.CharField(max_length=100, verbose_name=_("عملیات"))
+    timestamp = models.DateField(default=timezone.now, verbose_name=_("زمان"))
+
+    class Meta:
+        verbose_name = _("تاریخچه")
+        verbose_name_plural = _("تاریخچه‌ها")

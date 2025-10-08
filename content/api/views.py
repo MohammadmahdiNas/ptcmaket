@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from ..models import Blog, Category, Project, Gallery, Comment
+from ..models import Blog, Category, History, Project, Gallery, Comment
 from .serializers import *
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -91,3 +91,9 @@ class GalleryViewSet(ModelViewSet):
         
         # Filter galleries by the extracted project primary key (pk)
         return Gallery.objects.filter(project_id=pk)
+    
+    
+    
+class HistoryViewSet(ModelViewSet):
+    queryset = History.objects.all()
+    serializer_class = HistorySerializer

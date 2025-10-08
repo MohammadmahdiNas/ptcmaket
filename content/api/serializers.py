@@ -1,4 +1,5 @@
-from ..models import Blog, Category, Comment, Gallery, Project
+from django.utils import timezone
+from ..models import Blog, Category, Comment, Gallery, History, Project
 from rest_framework import serializers
 
 
@@ -115,3 +116,14 @@ class BlogDetailSerializer(serializers.ModelSerializer):
             "comments",
         ]
 
+class HistorySerializer(serializers.ModelSerializer):
+    timestamp = serializers.DateField(required=False, allow_null=True)
+    class Meta:
+        model = History
+        fields = ["id", "action", "timestamp"]
+        read_only_fields = ["id"]
+        
+    def validate_timestamp(self, value):
+        if value in [None, ""]:
+            return timezone.now().date()
+        return value

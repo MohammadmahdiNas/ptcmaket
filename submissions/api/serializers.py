@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.utils import timezone
-from ..models import Contact, Apply, History, Order
+from ..models import Contact, Apply, Order
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -26,16 +26,6 @@ class OrderSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "status"]
         
         
-class HistorySerializer(serializers.ModelSerializer):
-    timestamp = serializers.DateField(required=False, allow_null=True)
-    class Meta:
-        model = History
-        fields = ["id", "action", "timestamp"]
-        read_only_fields = ["id"]
-        
-    def validate_timestamp(self, value):
-        if value in [None, ""]:
-            return timezone.now().date()
-        return value
+
     
 

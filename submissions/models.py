@@ -73,10 +73,3 @@ class Order(models.Model):
         verbose_name_plural = _("سفارش‌ها")
 
 
-class History(models.Model):
-    action = models.CharField(max_length=100, verbose_name=_("عملیات"))
-    timestamp = models.DateField(default=timezone.now, verbose_name=_("زمان"))
-
-    class Meta:
-        verbose_name = _("تاریخچه")
-        verbose_name_plural = _("تاریخچه‌ها")
