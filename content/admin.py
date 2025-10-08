@@ -1,7 +1,9 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from .models import Blog, Comment, Category, Project, Gallery
+from .models import Blog, Comment, Category, History, Project, Gallery
+from django.utils.translation import gettext_lazy as _
+from modeltranslation.admin import TranslationAdmin
 
 
 # ---------- Inline Classes ----------
@@ -19,7 +21,7 @@ class GalleryInline(admin.TabularInline):   # نمایش گالری داخل ص�
 
 # ---------- Admin Classes ----------
 @admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
+class BlogAdmin(TranslationAdmin):
     list_display = ("title", "slug", "is_published", "created_at", "updated_at")
     list_filter = ("is_published", "created_at")
     search_fields = ("title", "description", "summary")
@@ -29,7 +31,7 @@ class BlogAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
     fieldsets = (
         ("اطلاعات اصلی", {
-            "fields": ("title", "slug", "is_show")
+            "fields": ("title", "slug", "is_published")
         }),
         ("متن و توضیحات", {
             "fields": ("summary", "description", "body")
@@ -50,14 +52,14 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ("title","slug")
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ("title",)
 
 
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectAdmin(TranslationAdmin):
     list_display = ("title", "slug", "category", "size", "scale", "created_at")
     list_filter = ("category", "created_at")
     search_fields = ("title", "description")
@@ -71,3 +73,8 @@ class GalleryAdmin(admin.ModelAdmin):
     list_display = ("project", "image")
     autocomplete_fields = ("project",)
 
+@admin.register(History)
+class HistoryAdmin(TranslationAdmin):
+    list_display = ("action", "timestamp")
+    ordering = ("-timestamp",)
+    
