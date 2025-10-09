@@ -39,13 +39,12 @@ class CommentViewSet(ModelViewSet):
 
 
 class BlogViewSet(ReadOnlyModelViewSet):
-    queryset = Blog.objects.all()
     lookup_field = "slug_id"
 
     def get_object(self):
         slug_id = self.kwargs.get(self.lookup_field)
         slug, pk = slug_id.rsplit("-", 1)
-        return get_object_or_404(Blog.objects.prefetch_related("comments"), pk=pk)
+        return get_object_or_404(Blog.objects, pk=pk)
 
     def get_serializer(self, *args, **kwargs):
         if self.action == "list":
@@ -67,6 +66,13 @@ class ProjectViewSet(ReadOnlyModelViewSet):
         if self.action == "list":
             return ProjectListSerializer(*args, **kwargs)
         return super().get_serializer(*args, **kwargs)
+    
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        category_id = self.request.GET.get("category_id")
+        if category_id:
+            return queryset.filter(category_id=category_id)
+        return queryset
 
 
 class GalleryViewSet(ReadOnlyModelViewSet):
