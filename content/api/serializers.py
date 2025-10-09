@@ -5,12 +5,13 @@ from rest_framework import serializers
 
 class CommentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
-        blog_id = self.context[blog_id]
+        blog_id = self.context["blog_id"]
+        return Comment.objects.create(blog_id=blog_id, **validated_data)
     
     class Meta:
         model = Comment
         fields = ["id", "text", "blog", "parent", "status", "created_at"]
-        read_only_fields = ["created_at"]
+        read_only_fields = ["created_at", "blog", "status", "id"]
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
